@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import RootNavigator from "./src/navigation/RootNavigator";
 
@@ -24,9 +25,11 @@ const App = () => {
   if (!loaded) return null;
 
   return (
-    <NavigationContainer theme={theme}>
-      <RootNavigator />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer theme={theme}>
+        <RootNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
