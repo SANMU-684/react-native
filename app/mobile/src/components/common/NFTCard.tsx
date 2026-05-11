@@ -3,28 +3,28 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
+import { useFavoritesStore } from "../../store/useFavoritesStore";
 import { SubInfo, EthPrice, NFTTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
 
 const NFTCard = ({ data }: { data: any }) => {
   const navigation = useNavigation<any>();
+  const colors = useAppColors();
+  const { isFavorite, toggleFavorite } = useFavoritesStore();
+  const isFav = isFavorite(data.id);
 
   return (
     <View
       style={{
-        backgroundColor: COLORS.white,
+        backgroundColor: colors.card,
         borderRadius: SIZES.font,
         marginBottom: SIZES.extraLarge,
         margin: SIZES.base,
         ...SHADOWS.dark,
       }}
     >
-      <View
-        style={{
-          width: "100%",
-          height: 250,
-        }}
-      >
+      <View style={{ width: "100%", height: 250 }}>
         <Image
           source={data.image}
           resizeMode="cover"
@@ -36,7 +36,13 @@ const NFTCard = ({ data }: { data: any }) => {
           }}
         />
 
-        <CircleButton imgUrl={assets.heart} right={10} top={10} />
+        <CircleButton
+          imgUrl={assets.heart}
+          right={10}
+          top={10}
+          tintColor={isFav ? "#FF2D55" : undefined}
+          handlePress={() => toggleFavorite(data)}
+        />
       </View>
 
       <SubInfo />

@@ -1,17 +1,34 @@
 import React from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme, type Theme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import RootNavigator from "./src/navigation/RootNavigator";
+import { ThemeProvider, useAppTheme } from "./src/context/ThemeContext";
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: "transparent",
-  },
-};
+function ThemedNavigation() {
+  const { colors, isDark } = useAppTheme();
+
+  const navTheme: Theme = {
+    ...DefaultTheme,
+    dark: isDark,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colors.background,
+      card: colors.tabBar,
+      text: colors.text,
+      border: colors.border,
+      primary: colors.tabBarActive,
+      notification: colors.tabBarActive,
+    },
+  };
+
+  return (
+    <NavigationContainer theme={navTheme}>
+      <RootNavigator />
+    </NavigationContainer>
+  );
+}
 
 const App = () => {
   const [loaded] = useFonts({
@@ -26,9 +43,9 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme}>
-        <RootNavigator />
-      </NavigationContainer>
+      <ThemeProvider>
+        <ThemedNavigation />
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 };

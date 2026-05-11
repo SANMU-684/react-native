@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { View, SafeAreaView, FlatList } from "react-native";
+import { useState } from "react";
+import { View, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { NFTCard, HomeHeader, FocusedStatusBar } from "../../components";
-import { COLORS, NFTData } from "../../constants";
+import { NFTData } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
 
 const HomeScreen = () => {
   const [nftData, setNftData] = useState<any[]>(NFTData as any[]);
+  const colors = useAppColors();
 
   const handleSearch = (value: string) => {
     if (value.length === 0) {
@@ -25,7 +28,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FocusedStatusBar backgroundColor={COLORS.primary} />
+      <FocusedStatusBar />
       <View style={{ flex: 1 }}>
         <View style={{ zIndex: 0 }}>
           <FlatList
@@ -47,9 +50,8 @@ const HomeScreen = () => {
             zIndex: -1,
           }}
         >
-          <View
-            style={{ height: 300, backgroundColor: COLORS.primary }} />
-          <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+          <View style={{ height: 300, backgroundColor: colors.surface }} />
+          <View style={{ flex: 1, backgroundColor: colors.background }} />
         </View>
       </View>
     </SafeAreaView>

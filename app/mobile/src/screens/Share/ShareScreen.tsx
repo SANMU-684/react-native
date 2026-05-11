@@ -1,32 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import FocusedStatusBar from "../../components/layout/FocusedStatusBar";
+import { useAppColors } from "../../context/ThemeContext";
 
 export default function ShareScreen() {
+  const colors = useAppColors();
+
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: "center", alignItems: "center" }}>
       <FocusedStatusBar />
-      <Text style={styles.title}>分享</Text>
-      <Text style={styles.subtitle}>Share Screen</Text>
+      <Text style={{ fontSize: 24, fontWeight: "bold", color: colors.text, marginBottom: 8 }}>分享</Text>
+      <Text style={{ fontSize: 16, color: colors.textSecondary }}>Share Screen</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#999",
-  },
-});
