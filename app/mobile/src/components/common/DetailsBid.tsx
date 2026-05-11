@@ -2,9 +2,12 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 
 import { EthPrice } from "./SubInfo";
-import { COLORS, SIZES, FONTS } from "../../constants";
+import { SIZES, FONTS } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
 
 const DetailsBid = ({ bid }: { bid: any }) => {
+  const colors = useAppColors();
+
   return (
     <View
       style={{
@@ -34,7 +37,7 @@ const DetailsBid = ({ bid }: { bid: any }) => {
           style={{
             fontFamily: FONTS.semiBold,
             fontSize: SIZES.small,
-            color: COLORS.primary,
+            color: colors.text,
           }}
         >
           出价人：{bid.name}
@@ -43,7 +46,7 @@ const DetailsBid = ({ bid }: { bid: any }) => {
           style={{
             fontFamily: FONTS.regular,
             fontSize: SIZES.small - 2,
-            color: COLORS.secondary,
+            color: colors.textSecondary,
             marginTop: 3,
           }}
         >

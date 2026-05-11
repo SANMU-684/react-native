@@ -1,13 +1,16 @@
 import React from "react";
 import { View, Text, Image, TextInput } from "react-native";
 
-import { COLORS, FONTS, SIZES, assets } from "../../constants";
+import { FONTS, SIZES, assets } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
 
 const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
+  const colors = useAppColors();
+
   return (
     <View
       style={{
-        backgroundColor: COLORS.primary,
+        backgroundColor: colors.surface,
         padding: SIZES.font,
       }}
     >
@@ -49,7 +52,7 @@ const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
           style={{
             fontFamily: FONTS.regular,
             fontSize: SIZES.small,
-            color: COLORS.white,
+            color: colors.textInverse,
           }}
         >
           你好，Victoria 👋
@@ -59,7 +62,7 @@ const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
           style={{
             fontFamily: FONTS.bold,
             fontSize: SIZES.large,
-            color: COLORS.white,
+            color: colors.textInverse,
             marginTop: SIZES.base / 2,
           }}
         >
@@ -72,7 +75,7 @@ const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
           style={{
             width: "100%",
             borderRadius: SIZES.font,
-            backgroundColor: COLORS.gray,
+            backgroundColor: colors.inputBackground,
             flexDirection: "row",
             alignItems: "center",
             paddingHorizontal: SIZES.font,

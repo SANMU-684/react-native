@@ -1,42 +1,55 @@
-import React from "react";
-import { View, Text, SafeAreaView, Image, StatusBar, FlatList } from "react-native";
+import { useEffect } from "react";
+import { View, Text, Image, StatusBar, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { COLORS, SIZES, assets, SHADOWS, FONTS } from "../../constants";
+import { SIZES, assets, SHADOWS, FONTS } from "../../constants";
 import { CircleButton, RectButton, SubInfo, DetailsDesc, DetailsBid, FocusedStatusBar } from "../../components";
+import { useFavoritesStore } from "../../store/useFavoritesStore";
+import { useHistoryStore } from "../../store/useHistoryStore";
+import { useAppColors } from "../../context/ThemeContext";
 
-const DetailsHeader = ({ data, navigation }: { data: any; navigation: any }) => (
-  <View style={{ width: "100%", height: 373 }}>
-    <Image
-      source={data.image}
-      resizeMode="cover"
-      style={{ width: "100%", height: "100%" }}
-    />
+const DetailsHeader = ({ data, navigation }: { data: any; navigation: any }) => {
+  const { isFavorite, toggleFavorite } = useFavoritesStore();
+  const isFav = isFavorite(data.id);
 
-    <CircleButton
-      imgUrl={assets.left}
-      handlePress={() => navigation.goBack()}
-      left={15}
-      top={(StatusBar.currentHeight ?? 0) + 10}
-    />
+  return (
+    <View style={{ width: "100%", height: 373 }}>
+      <Image
+        source={data.image}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%" }}
+      />
 
-    <CircleButton
-      imgUrl={assets.heart}
-      right={15}
-      top={(StatusBar.currentHeight ?? 0) + 10}
-    />
-  </View>
-);
+      <CircleButton
+        imgUrl={assets.left}
+        handlePress={() => navigation.goBack()}
+        left={15}
+        top={(StatusBar.currentHeight ?? 0) + 10}
+      />
+
+      <CircleButton
+        imgUrl={assets.heart}
+        right={15}
+        top={(StatusBar.currentHeight ?? 0) + 10}
+        tintColor={isFav ? "#FF2D55" : undefined}
+        handlePress={() => toggleFavorite(data)}
+      />
+    </View>
+  );
+};
 
 const DetailsScreen = ({ route, navigation }: { route: any; navigation: any }) => {
   const { data } = route.params;
+  const { addToHistory } = useHistoryStore();
+  const colors = useAppColors();
+
+  useEffect(() => {
+    if (data) addToHistory(data);
+  }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <FocusedStatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent={true}
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <FocusedStatusBar />
 
       <View
         style={{
@@ -46,7 +59,7 @@ const DetailsScreen = ({ route, navigation }: { route: any; navigation: any }) =
           paddingVertical: SIZES.font,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "rgba(255,255,255,0.5)",
+          backgroundColor: colors.card,
           zIndex: 1,
         }}
       >
@@ -62,7 +75,7 @@ const DetailsScreen = ({ route, navigation }: { route: any; navigation: any }) =
           paddingBottom: SIZES.extraLarge * 3,
         }}
         ListHeaderComponent={() => (
-          <React.Fragment>
+          <>
             <DetailsHeader data={data} navigation={navigation} />
             <SubInfo />
             <View style={{ padding: SIZES.font }}>
@@ -73,14 +86,14 @@ const DetailsScreen = ({ route, navigation }: { route: any; navigation: any }) =
                   style={{
                     fontSize: SIZES.font,
                     fontFamily: FONTS.semiBold,
-                    color: COLORS.primary,
+                    color: colors.text,
                   }}
                 >
                   当前出价
                 </Text>
               )}
             </View>
-          </React.Fragment>
+          </>
         )}
       />
     </SafeAreaView>

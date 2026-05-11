@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Image, Text } from "react-native";
 
-import { SIZES, FONTS, COLORS, SHADOWS, assets } from "../../constants";
+import { SIZES, FONTS, SHADOWS, assets } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
 
 export const NFTTitle = ({
   title,
@@ -14,13 +15,15 @@ export const NFTTitle = ({
   titleSize: number;
   subTitleSize: number;
 }) => {
+  const colors = useAppColors();
+
   return (
     <View>
       <Text
         style={{
           fontFamily: FONTS.semiBold,
           fontSize: titleSize,
-          color: COLORS.primary,
+          color: colors.text,
         }}
       >
         {title}
@@ -29,7 +32,7 @@ export const NFTTitle = ({
         style={{
           fontFamily: FONTS.regular,
           fontSize: subTitleSize,
-          color: COLORS.primary,
+          color: colors.text,
         }}
       >
         作者：{subTitle}
@@ -39,6 +42,8 @@ export const NFTTitle = ({
 };
 
 export const EthPrice = ({ price }: { price: number }) => {
+  const colors = useAppColors();
+
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <Image
@@ -50,7 +55,7 @@ export const EthPrice = ({ price }: { price: number }) => {
         style={{
           fontFamily: FONTS.medium,
           fontSize: SIZES.font,
-          color: COLORS.primary,
+          color: colors.text,
         }}
       >
         {price}
@@ -86,12 +91,14 @@ export const People = () => {
 };
 
 export const EndDate = () => {
+  const colors = useAppColors();
+
   return (
     <View
       style={{
         paddingHorizontal: SIZES.font,
         paddingVertical: SIZES.base,
-        backgroundColor: COLORS.white,
+        backgroundColor: colors.card,
         borderRadius: SIZES.font,
         justifyContent: "center",
         alignItems: "center",
@@ -104,7 +111,7 @@ export const EndDate = () => {
         style={{
           fontFamily: FONTS.regular,
           fontSize: SIZES.small,
-          color: COLORS.primary,
+          color: colors.text,
         }}
       >
         剩余时间
@@ -113,7 +120,7 @@ export const EndDate = () => {
         style={{
           fontFamily: FONTS.semiBold,
           fontSize: SIZES.medium,
-          color: COLORS.primary,
+          color: colors.text,
         }}
       >
         12小时30分

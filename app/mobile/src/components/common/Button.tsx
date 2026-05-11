@@ -6,10 +6,12 @@ import { COLORS, SIZES, FONTS, SHADOWS } from "../../constants";
 export const CircleButton = ({
   imgUrl,
   handlePress,
+  tintColor,
   ...props
 }: {
   imgUrl: any;
   handlePress?: () => void;
+  tintColor?: string;
   [key: string]: any;
 }) => {
   return (
@@ -30,7 +32,7 @@ export const CircleButton = ({
       <Image
         source={imgUrl}
         resizeMode="contain"
-        style={{ width: 24, height: 24 }}
+        style={{ width: 24, height: 24, tintColor }}
       />
     </TouchableOpacity>
   );

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 
 import { EthPrice, NFTTitle } from "./SubInfo";
-import { COLORS, SIZES, FONTS } from "../../constants";
+import { SIZES, FONTS } from "../../constants";
+import { useAppColors } from "../../context/ThemeContext";
 
 const DetailsDesc = ({ data }: { data: any }) => {
   const [text, setText] = useState(data.description.slice(0, 100));
   const [readMore, setReadMore] = useState(false);
+  const colors = useAppColors();
 
   return (
     <>
@@ -33,19 +35,15 @@ const DetailsDesc = ({ data }: { data: any }) => {
           style={{
             fontSize: SIZES.font,
             fontFamily: FONTS.semiBold,
-            color: COLORS.primary,
+            color: colors.text,
           }}
         >
           描述
         </Text>
-        <View
-          style={{
-            marginTop: SIZES.base,
-          }}
-        >
+        <View style={{ marginTop: SIZES.base }}>
           <Text
             style={{
-              color: COLORS.secondary,
+              color: colors.textSecondary,
               fontSize: SIZES.small,
               fontFamily: FONTS.regular,
               lineHeight: SIZES.large,
@@ -55,7 +53,7 @@ const DetailsDesc = ({ data }: { data: any }) => {
             {!readMore && "..."}
             <Text
               style={{
-                color: COLORS.primary,
+                color: colors.primary,
                 fontSize: SIZES.small,
                 fontFamily: FONTS.semiBold,
               }}
