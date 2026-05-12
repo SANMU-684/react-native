@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, Image, TextInput } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { FONTS, SIZES, assets } from "../../constants";
 import { useAppColors } from "../../context/ThemeContext";
 
-const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
+const HomeHeader = ({ onCreate }: { onCreate: () => void }) => {
   const colors = useAppColors();
 
   return (
@@ -27,24 +28,19 @@ const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
           style={{ width: 90, height: 25 }}
         />
 
-        <View style={{ width: 45, height: 45 }}>
-          <Image
-            source={assets.person01}
-            resizeMode="contain"
-            style={{ width: "100%", height: "100%" }}
-          />
-          <Image
-            source={assets.badge}
-            resizeMode="contain"
-            style={{
-              position: "absolute",
-              width: 15,
-              height: 15,
-              bottom: 0,
-              right: 0,
-            }}
-          />
-        </View>
+        <TouchableOpacity
+          onPress={onCreate}
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            backgroundColor: "rgba(255,255,255,0.2)",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Ionicons name="add" size={28} color={colors.textInverse} />
+        </TouchableOpacity>
       </View>
 
       <View style={{ marginVertical: SIZES.font }}>
@@ -68,31 +64,6 @@ const HomeHeader = ({ onSearch }: { onSearch: (value: string) => void }) => {
         >
           来找找你的艺术珍品
         </Text>
-      </View>
-
-      <View style={{ marginTop: SIZES.font }}>
-        <View
-          style={{
-            width: "100%",
-            borderRadius: SIZES.font,
-            backgroundColor: colors.inputBackground,
-            flexDirection: "row",
-            alignItems: "center",
-            paddingHorizontal: SIZES.font,
-            paddingVertical: SIZES.small - 2,
-          }}
-        >
-          <Image
-            source={assets.search}
-            resizeMode="contain"
-            style={{ width: 20, height: 20, marginRight: SIZES.base }}
-          />
-          <TextInput
-            placeholder="搜索藏品"
-            style={{ flex: 1 }}
-            onChangeText={onSearch}
-          />
-        </View>
       </View>
     </View>
   );
