@@ -8,6 +8,7 @@ import HomeScreen from "../screens/Home/HomeScreen";
 import DetailsScreen from "../screens/Home/DetailsScreen";
 import FavoritesScreen from "../screens/Favorites/FavoritesScreen";
 import HistoryScreen from "../screens/History/HistoryScreen";
+import CreateScreen from "../screens/Create/CreateScreen";
 import ShareScreen from "../screens/Share/ShareScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import { useAppColors } from "../context/ThemeContext";
@@ -26,6 +27,7 @@ function HomeStackNavigator() {
       <HomeStack.Screen name="Details" component={DetailsScreen} />
       <HomeStack.Screen name="Favorites" component={FavoritesScreen} />
       <HomeStack.Screen name="History" component={HistoryScreen} />
+      <HomeStack.Screen name="Create" component={CreateScreen} />
     </HomeStack.Navigator>
   );
 }

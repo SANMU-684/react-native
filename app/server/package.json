@@ -2,15 +2,20 @@
   "name": "isekai_grocery_server",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 5050",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
     "next": "15.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "typescript": "6.0.3"
   }
 }
